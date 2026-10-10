@@ -1,3 +1,121 @@
 body {
-  background-color: #dfecff;
+  background-image: url("assets/images/Halloween_tlo.jpg");
+  background-size: 100% 100%;
+  color: white;
+  text-align: center;
+}
+
+div {
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+h1 {
+  color: #ff7518;
+  font-family: Georgia, serif;
+  font-size: 42px;
+}
+
+h2 {
+  color: #ff9f1c;
+  font-family: Georgia, serif;
+  border-bottom: 2px solid #ff7518;
+}
+
+h3 {
+  color: #d8b4fe;
+  font-family: Arial, sans-serif;
+}
+
+p {
+  color: #f5f5f5;
+  font-family: Arial, sans-serif;
+  line-height: 1.6; /* odstep miedzy liniami bedzie 1.6 raza wiekszy od wysokosci czcionki */
+}
+
+ul {
+  list-style-type: square;
+  padding-left: 25px;
+  text-align: left;
+}
+
+li {
+  color: #ffb703;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+.header,
+.glowna,
+.footer {
+  width: 100%;
+}
+
+.glowna {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+}
+
+.tresc {
+  grid-column: 1 / -1;
+  grid-row: 1;
+}
+
+.galeria {
+  display: contents;
+}
+
+.foto-1 {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.porady {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.foto-2 {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+.foto {
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.foto-1 {
+  background-image: url("assets/images/Jamnik_halloween1.jpeg");
+}
+
+.foto-2 {
+  background-image: url("assets/images/Jamnik_halloween2.jpeg");
+  background-repeat: no-repeat;
+}
+
+.footer {
+  color: #ff7518;
+  border-top: 3px solid #ff7518;
+}
+
+@media (max-width: 600px) {
+  .glowna {
+    grid-template-columns: 1fr;
+  }
+  .porady,
+  .tresc,
+  .foto-1,
+  .foto-2 {
+    grid-column: 1;
+    grid-row: auto;
+  }
+  .foto {
+    width: 100%;
+  }
 }
