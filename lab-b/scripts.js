@@ -15,10 +15,12 @@ tasks = [
 class Todo {
     constructor() {
         this.tasksList = document.querySelector("#tasks-list ul");
+        this.searchInput = document.querySelector("#search-input");
         this.newTaskInput = document.querySelector("#new-task-input");
         this.newTaskDate = document.querySelector("#new-task-date");
         this.newTaskNote = document.querySelector("#new-task-note");
         this.addTaskButton = document.querySelector("#add-task-button");
+        this.phrase = "";
 
         const savedTasks = localStorage.getItem("tasks");
         if (savedTasks) {
@@ -33,6 +35,22 @@ class Todo {
         this.addTaskButton.addEventListener("click", () => {
             this.add();
         });
+
+        this.searchInput.addEventListener("input", () => {
+            this.phrase = this.searchInput.value.trim().toLowerCase();
+            this.draw();
+        });
+    }
+
+    get filteredTasks() {
+        if (!this.phrase) {
+            return this.tasks;
+        }
+
+        return this.tasks.filter((task) => {
+            const searchableText = `${task.title} ${task.date} ${task.note || ""}`;
+            return searchableText.toLowerCase().includes(this.phrase);
+        });
     }
 
     save() {
@@ -42,7 +60,8 @@ class Todo {
     draw(){
         this.tasksList.innerHTML = "";
 
-        this.tasks.forEach((task, index) => {
+        this.filteredTasks.forEach((task) => {
+            const index = this.tasks.indexOf(task);
             const taskElement = document.createElement("li");
             taskElement.className = "task";
             taskElement.innerHTML = `
