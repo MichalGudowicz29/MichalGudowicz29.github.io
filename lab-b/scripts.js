@@ -53,6 +53,14 @@ class Todo {
         });
     }
 
+    highlight(text) {
+        if (!this.phrase) return text;
+        return text.replace(
+            new RegExp(this.phrase, "gi"),
+            (match) => `<mark>${match}</mark>`
+        );
+    }
+
     save() {
         localStorage.setItem("tasks", JSON.stringify(this.tasks));
     }
@@ -67,8 +75,9 @@ class Todo {
             taskElement.innerHTML = `
                 <input type="checkbox" id="done-${index}" data-index="${index}">
                 <span>
-                    <strong>${task.title}</strong> - ${task.date}
-                    <small>${task.note}</small>
+                    <strong>${this.highlight(task.title)}</strong> -
+                    ${this.highlight(task.date)}
+                    <small>${this.highlight(task.note)}</small>
                 </span>
                 <button class="delete-task" data-index="${index}">Usuń</button>
             `;
