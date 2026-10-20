@@ -16,17 +16,22 @@ class Todo {
     constructor() {
         this.tasksList = document.querySelector("#tasks-list ul");
         this.newTaskInput = document.querySelector("#new-task-input");
+        this.newTaskDate = document.querySelector("#new-task-date");
+        this.newTaskNote = document.querySelector("#new-task-note");
         this.addTaskButton = document.querySelector("#add-task-button");
 
         const savedTasks = localStorage.getItem("tasks");
         if (savedTasks) {
-            this.tasks = JSON.parse(savedTasks);
+            this.tasks = JSON.parse(savedTasks).map((task) => ({
+                ...task,
+                note: task.note || ""
+            }));
         } else {
             this.tasks = [];
         }
 
         this.addTaskButton.addEventListener("click", () => {
-            this.addTask();
+            this.add();
         });
     }
 
@@ -41,14 +46,24 @@ class Todo {
             const taskElement = document.createElement("li");
             taskElement.className = "task";
             taskElement.innerHTML = `
-                <input type="checkbox" id="done-${index}"/>
-                <span>${task.title} - ${task.date}</span>
+                <input type="checkbox" id="done-${index}" data-index="${index}">
+                <span>
+                    <strong>${task.title}</strong> - ${task.date}
+                    <small>${task.note}</small>
+                </span>
                 <button class="delete-task" data-index="${index}">Usuń</button>
             `;
+
+            taskElement.addEventListener("click", (event) => {
+                if (event.target.matches("button, input")) {
+                    return;
+                }
+                this.edit(index);
+            });
             this.tasksList.appendChild(taskElement);
         });
 
-        this.tasksList.querySelectorAll("button").forEach((button) => {
+        this.tasksList.querySelectorAll("button, input[type='checkbox']").forEach((button) => {
             button.addEventListener("click", () => {
                 const index = Number(button.dataset.index);
 
@@ -59,23 +74,58 @@ class Todo {
         });
     }
 
-    addTask() {
-        const title = this.newTaskInput.value;
+    add() {
+        const title = this.newTaskInput.value.trim();
+        const note = this.newTaskNote.value.trim();
 
         if (!title) {
-            return
+            return;
         }
+
         const today = new Date();
-        const date = today.toLocaleDateString("pl-PL");
+        const date = this.newTaskDate.value || today.toLocaleDateString("pl-PL");
 
-
-        this.tasks.push({ title, date });
-        localStorage.setItem("tasks", JSON.stringify(this.tasks));
+        this.tasks.push({ title, date, note });
+        this.save();
 
         this.newTaskInput.value = "";
+        this.newTaskDate.value = "";
+        this.newTaskNote.value = "";
 
+        this.draw();
+    }
+
+    edit(index) {
+        const task = this.tasks[index];
+
+        const title = prompt("Edytuj tytuł:", task.title);
+        if (title === null) {
+            return;
+        }
+
+        const date = prompt("Edytuj datę:", task.date);
+        if (date === null) {
+            return;
+        }
+
+        const note = prompt("Edytuj notatkę:", task.note || "");
+        if (note === null) {
+            return;
+        }
+
+        if (!title.trim()) {
+            return;
+        }
+
+        this.tasks[index] = {
+            title: title.trim(),
+            date: date.trim(),
+            note: note.trim()
+        };
+
+        this.save();
         this.draw();
     }
 }
 
-const todo = new Todo();
+document.todo = new Todo();

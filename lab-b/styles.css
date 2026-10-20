@@ -32,16 +32,19 @@ body {
   width: 100%;
 }
 
-#search-bar input,
-#add-task input,
-#add-task button {
+#search-bar input {
   width: 100%;
 }
 
 #add-task {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr auto;
   gap: 10px;
+}
+
+#add-task input,
+#add-task button {
+  min-width: 0;
 }
 
 #tasks-list ul {
@@ -61,4 +64,19 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f3fff3;
+}
+
+.task span {
+  flex: 1;
+}
+
+.task small {
+  display: block;
+  margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+  #add-task {
+    grid-template-columns: 1fr;
+  }
 }
