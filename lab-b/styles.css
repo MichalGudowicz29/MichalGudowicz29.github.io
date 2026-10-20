@@ -1,3 +1,64 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
 body {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+  background-color: #f3fff3;
+
+  display: grid;
+  place-items: center;
+}
+
+#main-box {
+  width: min(90%, 700px);
+  padding: 20px;
+
+  display: grid;
+  gap: 20px;
+
+  background-color: white;
+}
+
+#search-bar,
+#tasks-list,
+#add-task {
+  width: 100%;
+}
+
+#search-bar input,
+#add-task input,
+#add-task button {
+  width: 100%;
+}
+
+#add-task {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#tasks-list ul {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.task {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding: 10px;
+  margin-bottom: 10px;
   background-color: #f3fff3;
 }
