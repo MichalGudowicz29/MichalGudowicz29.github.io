@@ -1,4 +1,4 @@
-const API_KEY = "4fab6421cd3e5380c43ce82959456644";
+const API_KEY = "7ded80d91f2b280ec979100cc8bbba94";
 
 class WeatherApp {
     constructor() {
@@ -20,10 +20,31 @@ class WeatherApp {
     getForecast() {
     }
 
-    drawWeather() {
+    drawWeather(forecast) {
+        const weatherBlock = document.querySelector("#weather-block");
+        weatherBlock.innerHTML = "";
+
+        forecast.list.forEach((weather) => {
+            this.createWeatherBlock(weather);
+        });
     }
 
-    createWeatherBlock() {
+    createWeatherBlock(weather) {
+        const block = document.createElement("div");
+        block.classList.add("weather-card");
+
+        const date = document.createElement("h2");
+        date.textContent = weather.dt_txt;
+
+        const temperature = document.createElement("p");
+        temperature.textContent =
+            `Temperatura: ${(weather.main.temp - 273.15).toFixed(1)}°C`;
+
+        const description = document.createElement("p");
+        description.textContent = weather.weather[0].description;
+
+        block.append(date, temperature, description);
+        document.querySelector("#weather-block").append(block);
     }
 }
 

@@ -1,3 +1,25 @@
 body {
   background-color: #e6f1fc;
+  font-family: Arial, sans-serif;
+}
+
+#weather-block {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.weather-card {
+  width: 200px;
+  padding: 16px;
+  background-color: white;
+  border: 1px solid #b8cde3;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px #0002;
+}
+
+.weather-card h2 {
+  margin-top: 0;
+  font-size: 18px;
 }
