@@ -85,19 +85,30 @@ class WeatherApp {
 
 const weatherApp = new WeatherApp();
 
-document.querySelector("#weather-form").addEventListener("submit", async (event) => {
-    event.preventDefault();
+function getLocation() {
+   const location = document.querySelector("#location").value.split(",");
+   return {
+       city: location[0].trim(),
+       country: location[1]?.trim()
+   };
+}
 
-    const location = document.querySelector("#location").value.split(",");
-    const city = location[0].trim();
-    const country = location[1]?.trim();
-    const weatherBlock = document.querySelector("#weather-block");
+document.querySelector("#weather-button").addEventListener("click", async () => {
+   const { city, country } = getLocation();
+   const weatherBlock = document.querySelector("#weather-block");
 
-    weatherBlock.innerHTML = "";
+   weatherBlock.innerHTML = "";
 
-    const currentWeather = await weatherApp.getWeather(city, country);
-    const forecast = await weatherApp.getForecast(city, country);
+   const currentWeather = await weatherApp.getWeather(city, country);
+   weatherApp.drawCurrentWeather(currentWeather);
+});
 
-    weatherApp.drawCurrentWeather(currentWeather);
-    weatherApp.drawWeather(forecast);
+document.querySelector("#forecast-button").addEventListener("click", async () => {
+   const { city, country } = getLocation();
+   const weatherBlock = document.querySelector("#weather-block");
+
+   weatherBlock.innerHTML = "";
+
+   const forecast = await weatherApp.getForecast(city, country);
+   weatherApp.drawWeather(forecast);
 });
