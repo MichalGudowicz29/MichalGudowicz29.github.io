@@ -4,8 +4,8 @@ class WeatherApp {
     constructor() {
     }
 
-    async getWeather(city, country) {
-        let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}`;
+    async getForecast(city, country) {
+        let url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}`;
 
         if (country) {
             url += `,${country}`;
@@ -15,9 +15,6 @@ class WeatherApp {
 
         const response = await fetch(url);
         return response.json();
-    }
-
-    getForecast() {
     }
 
     drawWeather(forecast) {
@@ -49,3 +46,14 @@ class WeatherApp {
 }
 
 const weatherApp = new WeatherApp();
+
+document.querySelector("#weather-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const location = document.querySelector("#location").value.split(",");
+    const city = location[0].trim();
+    const country = location[1]?.trim();
+
+    const forecast = await weatherApp.getForecast(city, country);
+    weatherApp.drawWeather(forecast);
+});
