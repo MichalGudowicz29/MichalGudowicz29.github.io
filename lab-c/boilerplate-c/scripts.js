@@ -20,7 +20,9 @@ class WeatherApp {
 
             request.onload = function () {
                 if (request.status === 200) {
-                    resolve(JSON.parse(request.responseText));
+                    const weather = JSON.parse(request.responseText);
+                    console.log(weather);
+                    resolve(weather);
                 } else {
                     reject(new Error("Nie udało się pobrać bieżącej pogody."));
                 }
@@ -42,6 +44,7 @@ class WeatherApp {
         url += `&appid=${API_KEY}`;
 
         const response = await fetch(url);
+        console.log(response);
         return response.json();
     }
 
