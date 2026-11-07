@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DogBreed{% endblock %}
+
+{% block body %}
+<main class="container page-content">
+    <h1>Dog breed details</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+    <table class="table mb-0">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ dog_breed.id }}</td>
+            </tr>
+            <tr>
+                <th>Subject</th>
+                <td>{{ dog_breed.subject }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ dog_breed.description }}</td>
+            </tr>
+        </tbody>
+    </table>
+        </div>
+    </div>
+
+    <a class="btn btn-link mt-3 px-0" href="{{ path('app_dog_breed_index') }}">Back to list</a>
+
+    <a class="btn btn-primary mt-3" href="{{ path('app_dog_breed_edit', {'id': dog_breed.id}) }}">Edit</a>
+
+    <div class="mt-2">
+        {{ include('dog_breed/_delete_form.html.twig') }}
+    </div>
+</main>
+{% endblock %}

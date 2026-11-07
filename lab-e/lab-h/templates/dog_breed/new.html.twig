@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New DogBreed{% endblock %}
+
+{% block body %}
+<main class="container page-content">
+    <h1>Create new dog breed</h1>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            {{ include('dog_breed/_form.html.twig') }}
+        </div>
+    </div>
+
+    <a class="btn btn-link mt-3 px-0" href="{{ path('app_dog_breed_index') }}">Back to list</a>
+</main>
+{% endblock %}

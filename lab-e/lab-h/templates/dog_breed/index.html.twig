@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DogBreed index{% endblock %}
+
+{% block body %}
+<main class="container page-content">
+    <div class="align-items-center d-flex justify-content-between gap-3 list-heading mb-4">
+        <h1 class="mb-0">Dog breeds</h1>
+        <a class="btn btn-primary" href="{{ path('app_dog_breed_new') }}">Create new</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for dog_breed in dog_breeds %}
+            <tr>
+                <td>{{ dog_breed.id }}</td>
+                <td>{{ dog_breed.subject }}</td>
+                <td>{{ dog_breed.description }}</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-secondary" href="{{ path('app_dog_breed_show', {'id': dog_breed.id}) }}">Show</a>
+                    <a class="btn btn-sm btn-outline-primary" href="{{ path('app_dog_breed_edit', {'id': dog_breed.id}) }}">Edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
